@@ -24,8 +24,8 @@ public class CrimeFragment extends Fragment {
 
     public static final String EXTRA_CRIME_ID = "com.high_technology_software.concept.criminalintent.crime_id";
 
-    private static final String DIALOG_DATE = "date";
-    private static final int REQUEST_DATE = 0;
+    private static final String DIALOG_CHOOSER = "chooser";
+    private static final int REQUEST_CHOOSER = 0;
 
     private Crime mCrime;
     private EditText mTitleField;
@@ -83,9 +83,9 @@ public class CrimeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentManager fm = getActivity().getSupportFragmentManager();
-                DatePickerFragment dialog = DatePickerFragment.newInstance(mCrime.getDate());
-                dialog.setTargetFragment(CrimeFragment.this, REQUEST_DATE);
-                dialog.show(fm, DIALOG_DATE);
+                ChooserPickerFragment dialog = ChooserPickerFragment.newInstance(mCrime.getDate());
+                dialog.setTargetFragment(CrimeFragment.this, REQUEST_CHOOSER);
+                dialog.show(fm, DIALOG_CHOOSER);
             }
         });
 
@@ -104,8 +104,8 @@ public class CrimeFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode != Activity.RESULT_OK) return;
-        if (requestCode == REQUEST_DATE) {
-            Date date = (Date)data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
+        if (requestCode == REQUEST_CHOOSER) {
+            Date date = (Date)data.getSerializableExtra(ChooserPickerFragment.EXTRA_CRIME_DATE);
             mCrime.setDate(date);
             updateDate();
         }
